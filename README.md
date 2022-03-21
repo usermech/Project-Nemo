@@ -10,6 +10,6 @@ Batuhan Asma
 
 Ayberk Acar
 
-Ulaş Yaprak @userleaf
+Ulaş Yaprak 
 
 Umut Kurt
