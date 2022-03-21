@@ -1,9 +1,11 @@
 # Project-Nemo
 Middle East Technical University
+Spring 2021-2022
 
 ME462 Fish on Hoverboard Wheels Project
 
-# Contributors
+
+# Collaborators
 Batuhan Asma
 
 Ayberk Acar
