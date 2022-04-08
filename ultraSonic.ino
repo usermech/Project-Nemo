@@ -1,34 +1,47 @@
 //Arduino Ultrasonic Sensor HC-SR04
 //Re-writed by Umut Kurt
 
-#define trigPin 11
-#define echoPin 12
+#define trigPin1 2
+#define echoPin1 3
+#define trigPin2 4
+#define echoPin2 5
+
 
 //Variables 
 long duration;
-float distance;
+float distance, RightSensor, LeftSensor ;
+unsigned long timeout = 20000;
 
 void setup() {
-  pinMode(trigPin,OUTPUT);    //Define trigger pin as output pin
-  pinMode(echoPin, INPUT);    //Define echo pin as input pin
-  
-  Serial.begin(9600);       //Serial Communication is started
+  Serial.begin(9600);
+  pinMode(trigPin1, OUTPUT);
+  pinMode(echoPin1, INPUT);
+  pinMode(trigPin2, OUTPUT);
+  pinMode(echoPin2, INPUT);
+ // pinMode(trigPin3, OUTPUT);
+ // pinMode(echoPin3, INPUT);
 }
 
-void loop()  {
-  
-  digitalWrite(trigPin, LOW);
-  delayMicroseconds(3);         // Sends a LOW pulse for 3 microseconds to clear the trigPin before HIGH pulse
-  digitalWrite(trigPin, HIGH);
-  delayMicroseconds(10);        //Sends a HIGH pulse for 10 microseconds to trigger the sensor
-  digitalWrite(trigPin, LOW);
-  
-//Read the signal from echo pin for the duration of travelling soundwave 
-  duration = pulseIn(echoPin, HIGH);
-//Convert duration to distance
-  distance = duration * 0.0343 / 2;
-//Display from serial monitor
-  Serial.print(distance);
-  delay(10);
+void loop() {
+  SonarSensor(trigPin1, echoPin1);
+  RightSensor = distance;
+  SonarSensor(trigPin2, echoPin2);
+  LeftSensor = distance;
+  //SonarSensor(trigPin3, echoPin3);
+  //FrontSensor = distance;
+  Serial.print(LeftSensor);
+  Serial.print(" – ");
+  //Serial.print(FrontSensor);
+  //Serial.print(” – “);
+  Serial.println(RightSensor);
 }
-  
+
+void SonarSensor(int trigPin,int echoPin) {
+  digitalWrite(trigPin, LOW);
+  delayMicroseconds(2);
+  digitalWrite(trigPin, HIGH);
+  delayMicroseconds(10);
+  digitalWrite(trigPin, LOW);
+  duration = pulseIn(echoPin, HIGH,timeout);
+  distance = duration * 0.0343 / 2;
+  }
